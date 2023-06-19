@@ -1,3 +1,11 @@
+
+local parte = game.Workspace:WaitForChild("Bloco")
+
+-- Obtém o Baseplate
+local baseplate = game.Workspace.Baseplate
+
+-- Define os limites da área de movimento
+local limiteMinX = baseplate.Position.X - baseplate.Size.X/2 + baseplate.Size.X * 0.15
 local limiteMaxX = baseplate.Position.X + baseplate.Size.X/2 - baseplate.Size.X * 0.15
 local limiteMinZ = baseplate.Position.Z - baseplate.Size.Z/2 + baseplate.Size.Z * 0.15
 local limiteMaxZ = baseplate.Position.Z + baseplate.Size.Z/2 - baseplate.Size.Z * 0.15
