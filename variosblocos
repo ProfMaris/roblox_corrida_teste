@@ -1,9 +1,6 @@
-local baseplate = game.Workspace.Baseplate -- Baseplate
-local jogador = game.Players.LocalPlayer -- Jogador local
-
-local numPartes = 50 -- Número total de partes
-local cores = {BrickColor.new("Bright red"), BrickColor.new("Bright blue"), BrickColor.new("Bright green"), BrickColor.new("Bright yellow"), BrickColor.new("Bright orange")} -- Cores diferenciadas
-local velocidades = {2, 4, 6, 8, 10} -- Velocidades correspondentes às cores
+local baseplate = game.Workspace.Baseplate
+local numPartes = 50
+local cores = {BrickColor.new("Bright red"), BrickColor.new("Bright blue"), BrickColor.new("Bright green"), BrickColor.new("Bright yellow"), BrickColor.new("Bright orange")}
 
 local function criarParte()
     local parte = Instance.new("Part")
@@ -18,22 +15,17 @@ end
 local partes = {}
 for i = 1, numPartes do
     local parte = criarParte()
-    parte.Position = Vector3.new(
-        math.random(baseplate.Size.X * -0.35, baseplate.Size.X * 0.35),
-        5,
-        math.random(baseplate.Size.Z * -0.35, baseplate.Size.Z * 0.35)
-    )
     parte.BrickColor = cores[(i - 1) % #cores + 1]
     partes[i] = parte
-    
-    parte.Touched:Connect(function(otherPart)
-        local humanoid = jogador.Character and jogador.Character:FindFirstChildOfClass("Humanoid")
-        if humanoid then
-            local corIndex = table.find(cores, parte.BrickColor)
-            if corIndex then
-                humanoid.WalkSpeed = humanoid.WalkSpeed + velocidades[corIndex]
-            end
-        end
-    end)
 end
-Nesse script, 50 partes são criadas e distribuídas dentro do Baseplate, com cada parte recebendo uma cor diferente da tabela cor
+
+while true do
+    for i = 1, numPartes do
+        local parte = partes[i]
+        local newX = math.random(baseplate.Size.X * -0.35, baseplate.Size.X * 0.35)
+        local newZ = math.random(baseplate.Size.Z * -0.35, baseplate.Size.Z * 0.35)
+        local newPosition = Vector3.new(newX, parte.Position.Y, newZ)
+        parte.Position = newPosition
+    end
+    wait(1) -- Tempo de espera antes de mover as partes novamente (1 segundo)
+end
