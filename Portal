@@ -1,0 +1,14 @@
+local portal =game.Workspace:WaitForChild("Portal")
+
+
+local function onTouched(otherPart)
+	if otherPart.Parent:FindFirstChild("Humanoid") then
+		local character = otherPart.Parent
+		local humanoid = character:FindFirstChild("Humanoid")
+		local newPosition = Vector3.new(-186, 3.5, -18) -- posição do portal de destino
+
+		humanoid.RootPart.CFrame = CFrame.new(newPosition)
+	end
+end
+
+portal.Touched:Connect(onTouched)
